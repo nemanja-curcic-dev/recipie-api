@@ -9,7 +9,8 @@ class TestModels(TestCase):
         email = 'nemanja.curcic@test.com'
         password = 'testpass123'
 
-        user = get_user_model().objects.create_user(email=email, password=password)
+        user = get_user_model().objects.create_user(email=email,
+                                                    password=password)
 
         self.assertEquals(user.email, email)
         self.assertTrue(user.check_password(password))
@@ -19,7 +20,8 @@ class TestModels(TestCase):
         email = 'nemanja@TESTMAIL.com'
         password = 'testpass123'
 
-        user = get_user_model().objects.create_user(email=email, password=password)
+        user = get_user_model().objects.create_user(email=email,
+                                                    password=password)
 
         self.assertEquals(user.email, email.lower())
 
@@ -27,11 +29,14 @@ class TestModels(TestCase):
         """User must provide email address"""
 
         with self.assertRaises(ValueError):
-            get_user_model().objects.create_user(email=None, password='test123')
+            get_user_model().objects.create_user(email=None,
+                                                 password='test123')
 
     def test_create_superuser(self):
         """Testing of creating a superuser"""
-        user = get_user_model().objects.create_super_user(email='test@mail.com', password='test123')
+        user = get_user_model().objects.\
+            create_super_user(email='test@mail.com',
+                              password='test123')
 
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
